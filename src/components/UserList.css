@@ -1,0 +1,45 @@
+/* src/components/UserList.css */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  
+  .user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .user-table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  button {
+    padding: 8px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-right: 4px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:last-child {
+    background-color: #f44336;
+    margin-right: 0;
+  }
+  
+  button:last-child:hover {
+    background-color: #d32f2f;
+  }
+  

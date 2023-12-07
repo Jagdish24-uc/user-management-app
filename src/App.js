@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useState } from 'react';
+import UserForm from './components/UserForm';
+import UserList from './components/UserList';
+import User from './models/User';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [users, setUsers] = useState([]);
+  const [editingUser, setEditingUser] = useState(null);
+
+  const handleSave = (formData) => {
+    if (editingUser) {
+      // Edit existing user
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => (user.id === editingUser.id ? { ...user, ...formData } : user))
+      );
+      setEditingUser(null);
+    } else {
+      // Create new user
+      setUsers((prevUsers) => [...prevUsers, new User(Date.now(), ...Object.values(formData))]);
+    }
+  };
+
+  const handleDelete = (userId) => {
+    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+  };
+
+  const handleEdit = (user) => {
+    setEditingUser(user);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingUser(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <UserForm onSave={handleSave} onCancel={handleCancelEdit} user={editingUser || {}} />
+      <UserList users={users} onDelete={handleDelete} onEdit={handleEdit} />
     </div>
   );
-}
+};
 
 export default App;
